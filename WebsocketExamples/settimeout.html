@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SetTimeOut Example!</title>
+  </head>
+  <body>
+  <h1>SetTimeOut Example!</h1>
+  <h1 id="timer">Timer: </h1>
+  <script>
+  var time = 10;
+  function updateTimer()
+  {
+    time = time - 1;
+    document.getElementById("timer").innerHTML = 
+      "Timer: " + time;
+    
+    // is time up?
+    if (time != 0)
+    {
+      setTimeout(
+  	    updateTimer, 
+  	    1000);
+    } 
+    else if (time == 0)
+    {
+    	document.getElementById("timer").innerHTML = 
+    	"Time's up!";
+    }
+  }
+  updateTimer();
+
+  </script>
+  </body>
+</html>

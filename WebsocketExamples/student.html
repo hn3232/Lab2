@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Classroom Collaboration (student)</title>
+  </head>
+  <body>
+    <h1>Classroom Collobration (student)</h1>
+    <form id="answers" action="">
+      Question: <span id="question"></span> <br />
+      <label for="answer">Answer:</label> <input type="text" id="answer"> <br />
+      <input type="submit">
+    </form>
+    <div id="message"></div>
+    <div id="correctans"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+
+      // Make the connection
+      var socket = io();
+
+      // If a question is received, add it to the HTML page
+      socket.on("deliverquestion", function(ques)
+      {
+        $("#question").html(ques);
+      });
+
+      // Submit the answer, if user clicks submit button
+      $("#answers").submit(function(){
+        
+        // Send message to the server with the answer
+        socket.emit("answerquestion", $("#answer").val());
+
+        // Override the default form submit behaviour
+        return false;
+
+      });
+
+      // If a result is received, show the user...
+      socket.on("resultquestion", function(msg) {
+        if (msg.correct) $("#message").html("Correct!");
+        else $("#message").html("Incorrect!");
+
+        $("#correctans").html("Correct answer: " + msg.answer);
+      });
+
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+ 

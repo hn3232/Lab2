@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Classroom Collaboration (teacher)</title>
+  </head>
+  <body>
+    <h1>Classroom Collobration (teacher)</h1>
+    <form id="questions" action="">
+      <label for="question">Question:</label> <input type="text" id="question"> <br />
+      <label for="answer">Answer:</label> <input type="text" id="answer"> <br />
+      <input type="submit">
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+    
+    // Make the connection
+    var socket = io();
+
+    // submit handler
+    $("#questions").submit( function(){
+      
+      // submit a question message
+      socket.emit("submitquestion",
+       {question: $("#question").val(),
+        answer: $("#answer").val()
+       });
+      
+      // override the default submit behaviour
+      return false;
+
+    })
+
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
